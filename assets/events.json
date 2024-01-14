@@ -8,6 +8,10 @@
     "title": "Hat",
     "description": "Something you put on your head",
     "color": "#27ae60"
+  },
+  {
+    "title": "Shoes",
+    "description": "Something you put on your feet",
+    "color": "#e67e22"
   }
-  
 ]
