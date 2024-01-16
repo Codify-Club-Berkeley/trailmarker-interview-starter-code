@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,21 +30,24 @@ class _EventListPageState extends State<EventListPage> {
   @override
   void initState() {
     super.initState();
-    // Task 1: Load data from the JSON file when the widget initializes
-    // Commenting out the solution for Task 1
-
     loadEvents();
   }
 
   // Task 1: Method to load events - Comment out for Task 1
 
   Future<void> loadEvents() async {
-    final jsonFile =
-        await DefaultAssetBundle.of(context).loadString('assets/events.json');
-    final List<dynamic> jsonData = json.decode(jsonFile);
+    // Load the JSON file from the assets folder
+
+    // Decode the JSON file
 
     setState(() {
-      events = jsonData.map((eventData) => Event.fromJson(eventData)).toList();
+      events = [
+        Event(
+          title: 'Flutter Workshop',
+          description: 'Learn Flutter',
+          color: Colors.grey,
+        ),
+      ];
     });
   }
 
@@ -53,14 +57,8 @@ class _EventListPageState extends State<EventListPage> {
       appBar: AppBar(
         title: Text('Event List'),
       ),
-      // Task 1: Render a list of event cards - Comment out for Task 1
-
-      body: ListView.builder(
-        itemCount: events.length,
-        itemBuilder: (BuildContext context, int index) {
-          return EventCard(event: events[index]);
-        },
-      ),
+      // Task 1: Render a list of event cards
+      body: EventCard(event: events[0]),
     );
   }
 }
@@ -69,14 +67,13 @@ class Event {
   final String title;
   final String description;
   final Color color;
-  //bool isFavorite;
+  // Task 3: isFavorite flag
 
   Event({
     required this.title,
     required this.description,
     required this.color,
-    // Task 3: isFavorite flag - Comment out for Task 3
-    // this.isFavorite = false
+    // Task 3: isFavorite flag
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -104,27 +101,18 @@ class _EventCardState extends State<EventCard> {
       color: widget.event.color,
       child: ListTile(
         title: Text(widget.event.title),
-        // Task 2: Change alignment and font size of subtitle - Comment out for Task 2
+        // Task 2: Create the subtitle
 
-        subtitle: Text(
-          widget.event.description,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18), // Increased font size
-        ),
-
-/*
-       
         trailing: IconButton(
           icon: Icon(
             // Task 3: Use isFavorite to determine the icon - Comment out for Task 3
-            
             Icons.favorite_border,
             color: Colors.red,
           ),
-          // Task 3: Toggle isFavorite state - Comment out for Task 3
-        
+          onPressed: () {
+            // Task 3: Toggle isFavorite state
+          },
         ),
-        */
       ),
     );
   }
